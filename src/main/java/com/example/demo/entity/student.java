@@ -8,8 +8,19 @@ public class student{
     public void setId(int id){
         this.id=id;
     }
-    public int getName(){
+    public String getName(){
         return name;
     }
-    public void set
+    public void setName(String name){
+        this.name=name;
+    }
+    public String getEmail(String email){
+        return email
+    }
+    public void setEmail(String email){
+        this.email=email;
+    }    
+    public student(int id,String name,String email){
+        
+    }
 }
