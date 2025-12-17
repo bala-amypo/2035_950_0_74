@@ -18,7 +18,7 @@ public class student{
         this.name=name;
     }
     public String getEmail(String email){
-        return email
+        return email;
     }
     public void setEmail(String email){
         this.email=email;
