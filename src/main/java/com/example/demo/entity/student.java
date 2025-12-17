@@ -1,4 +1,6 @@
 public class student{
+    @id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
     private String email;
@@ -21,6 +23,6 @@ public class student{
         this.email=email;
     }    
     public student(int id,String name,String email){
-        
+
     }
 }
