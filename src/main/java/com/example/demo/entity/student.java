@@ -1,6 +1,6 @@
 import jakartra.persistence.*;
 public class student{
-    @id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String name;
