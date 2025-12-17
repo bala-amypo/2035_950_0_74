@@ -24,6 +24,8 @@ public class student{
         this.email=email;
     }    
     public student(Integer id,String name,String email){
-
+        this.id=id;
+        this.name=name;
+        this.email=email;
     }
 }
