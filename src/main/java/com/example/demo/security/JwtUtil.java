@@ -18,7 +18,6 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expirationMillis;
 
-    // ✅ Generate Token
     public String generateToken(Long userId, String email, String role) {
 
         Claims claims = Jwts.claims();
@@ -37,7 +36,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // ✅ Validate Token
     public Claims validateToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
