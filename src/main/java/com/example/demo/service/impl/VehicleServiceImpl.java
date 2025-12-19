@@ -1,43 +1,45 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.*;
+import com.example.demo.entity.User;
+import com.example.demo.entity.Vehicle;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.*;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.VehicleRepository;
 import com.example.demo.service.VehicleService;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class VehicleServiceImpl implements VehicleService {
-
-    private final VehicleRepository vehicleRepo;
-    private final UserRepository userRepo;
-
-    public VehicleServiceImpl(VehicleRepository vehicleRepo, UserRepository userRepo) {
-        this.vehicleRepo = vehicleRepo;
-        this.userRepo = userRepo;
+    private final VehicleRepository vehicleRepository;
+    private final UserRepository userRepository;
+    
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, UserRepository userRepository) {
+        this.vehicleRepository = vehicleRepository;
+        this.userRepository = userRepository;
     }
-
+    
     @Override
     public Vehicle addVehicle(Long userId, Vehicle vehicle) {
-        if (vehicle.getCapacityKg() <= 0) {
-            throw new IllegalArgumentException("Capacity must be positive");
-        }
-
-        User user = userRepo.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
+        
+        if (vehicle.getCapacityKg() <= 0) {
+            throw new IllegalArgumentException("Capacity must be greater than 0");
+        }
+        
         vehicle.setUser(user);
-        return vehicleRepo.save(vehicle);
+        return vehicleRepository.save(vehicle);
     }
-
+    
     @Override
     public List<Vehicle> getVehiclesByUser(Long userId) {
-        return vehicleRepo.findByUserId(userId);
+        return vehicleRepository.findByUserId(userId);
     }
-
+    
     @Override
     public Vehicle findById(Long id) {
-        return vehicleRepo.findById(id)
+        return vehicleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
     }
 }
