@@ -29,6 +29,7 @@ public class RouteOptimizationResult {
         this.shipment = shipment;
         this.optimizedDistanceKm = distance;
         this.estimatedFuelUsageL = fuel;
-    }
+    }   
+ }
 
     
