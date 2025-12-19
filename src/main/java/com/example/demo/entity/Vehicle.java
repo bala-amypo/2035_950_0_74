@@ -26,5 +26,4 @@ public class Vehicle {
         this.fuelEfficiency = fuelEfficiency;
     }
 
-    // getters and setters
 }

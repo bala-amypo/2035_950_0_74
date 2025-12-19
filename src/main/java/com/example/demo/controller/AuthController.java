@@ -19,7 +19,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
 
-    // ✅ Constructor Injection
+   
     public AuthController(UserService userService,
                           JwtUtil jwtUtil,
                           PasswordEncoder passwordEncoder) {
@@ -28,15 +28,13 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // ✅ Register
-    @PostMapping("/register")
+        @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         User savedUser = userService.registerUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    // ✅ Login
-    @PostMapping("/login")
+        @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
 
         User user = userService.findByEmail(request.getEmail());

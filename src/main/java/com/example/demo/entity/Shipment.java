@@ -34,5 +34,4 @@ public class Shipment {
         this.scheduledDate = scheduledDate;
     }
 
-    // getters and setters
 }

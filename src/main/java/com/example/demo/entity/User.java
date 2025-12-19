@@ -28,5 +28,4 @@ public class User {
         this.role = role;
     }
 
-    // getters and setters
-}
+   

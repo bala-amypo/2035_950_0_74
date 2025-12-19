@@ -20,7 +20,7 @@ public class ApiResponse {
         this.data = data;
     }
 
-    // getters & setters
+    
     public boolean isSuccess() {
         return success;
     }

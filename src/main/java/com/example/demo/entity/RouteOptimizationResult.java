@@ -31,5 +31,4 @@ public class RouteOptimizationResult {
         this.estimatedFuelUsageL = fuel;
     }
 
-    // getters and setters
-}
+    

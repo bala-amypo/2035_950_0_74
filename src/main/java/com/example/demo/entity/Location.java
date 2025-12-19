@@ -22,5 +22,4 @@ public class Location {
         this.longitude = longitude;
     }
 
-    // getters and setters
 }

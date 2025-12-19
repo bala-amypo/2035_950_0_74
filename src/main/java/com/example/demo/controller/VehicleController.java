@@ -15,12 +15,10 @@ public class VehicleController {
 
     private final VehicleService vehicleService;
 
-    // ✅ Constructor Injection
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 
-    // ✅ Add Vehicle
     @PostMapping("/{userId}")
     public ResponseEntity<Vehicle> addVehicle(@PathVariable Long userId,
                                               @RequestBody Vehicle vehicle) {
@@ -28,7 +26,6 @@ public class VehicleController {
         return new ResponseEntity<>(savedVehicle, HttpStatus.CREATED);
     }
 
-    // ✅ Get Vehicles by User
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Vehicle>> getVehiclesByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(

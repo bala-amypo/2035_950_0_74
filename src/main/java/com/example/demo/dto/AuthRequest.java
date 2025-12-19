@@ -13,7 +13,7 @@ public class AuthRequest {
         this.password = password;
     }
 
-    // getters & setters
+   
     public String getEmail() {
         return email;
     }

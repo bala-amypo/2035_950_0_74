@@ -13,12 +13,10 @@ public class RouteOptimizationController {
 
     private final RouteOptimizationService routeService;
 
-    // ✅ Constructor Injection
     public RouteOptimizationController(RouteOptimizationService routeService) {
         this.routeService = routeService;
     }
 
-    // ✅ Optimize Route
     @PostMapping("/{shipmentId}")
     public ResponseEntity<RouteOptimizationResult> optimizeRoute(
             @PathVariable Long shipmentId) {
@@ -29,7 +27,6 @@ public class RouteOptimizationController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    // ✅ Get Optimization Result
     @GetMapping("/result/{resultId}")
     public ResponseEntity<RouteOptimizationResult> getResult(
             @PathVariable Long resultId) {

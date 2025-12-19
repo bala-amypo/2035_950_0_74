@@ -13,12 +13,10 @@ public class ShipmentController {
 
     private final ShipmentService shipmentService;
 
-    // ✅ Constructor Injection
     public ShipmentController(ShipmentService shipmentService) {
         this.shipmentService = shipmentService;
     }
 
-    // ✅ Create Shipment
     @PostMapping("/{vehicleId}")
     public ResponseEntity<Shipment> createShipment(@PathVariable Long vehicleId,
                                                    @RequestBody Shipment shipment) {
@@ -26,7 +24,6 @@ public class ShipmentController {
         return new ResponseEntity<>(savedShipment, HttpStatus.CREATED);
     }
 
-    // ✅ Get Shipment
     @GetMapping("/{shipmentId}")
     public ResponseEntity<Shipment> getShipment(@PathVariable Long shipmentId) {
         return ResponseEntity.ok(
