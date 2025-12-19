@@ -1,57 +1,40 @@
 package com.example.demo.security;
 
-import java.util.Date;
-
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import javax.crypto.SecretKey;
+import java.util.Date;
 
 @Component
 public class JwtUtil {
-
-    @Value("${jwt.secret}")
-    private String secretKey;
-
-    @Value("${jwt.expiration}")
-    private long expirationMillis;
-
+    private final String secretKey;
+    private final long expirationMillis;
+    private final SecretKey key;
+    
+    public JwtUtil(@Value("${jwt.secret}") String secretKey, @Value("${jwt.expiration}") long expirationMillis) {
+        this.secretKey = secretKey;
+        this.expirationMillis = expirationMillis;
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
+    }
+    
     public String generateToken(Long userId, String email, String role) {
-
-        Claims claims = Jwts.claims();
-        claims.put("userId", userId);
-        claims.put("email", email);
-        claims.put("role", role);
-
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + expirationMillis);
-
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(expiry)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .claim("userId", userId)
+                .claim("email", email)
+                .claim("role", role)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMillis))
+                .signWith(key)
                 .compact();
     }
-
-    public Claims validateToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
+    
+    public Claims validateToken(String token) throws JwtException, ExpiredJwtException {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
-    }
-
-    public Long getUserId(String token) {
-        return validateToken(token).get("userId", Long.class);
-    }
-
-    public String getEmail(String token) {
-        return validateToken(token).get("email", String.class);
-    }
-
-    public String getRole(String token) {
-        return validateToken(token).get("role", String.class);
     }
 }
